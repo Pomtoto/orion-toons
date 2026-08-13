@@ -1,0 +1,14 @@
+# Blueprint لموقع Render.com — ينشر الخادم تلقائياً من هذا الملف
+services:
+  - type: web
+    name: orion-toons
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: OCR_PROVIDER
+        value: anthropic
+      - key: ANTHROPIC_API_KEY
+        sync: false   # يُدخل يدوياً في لوحة Render
