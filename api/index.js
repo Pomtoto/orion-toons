@@ -8,17 +8,12 @@ app.use(express.json({ limit: '2mb' }));
 const BASE = 'https://api.mangadex.org';
 const UA = 'OrionToons/2.0';
 
-// وسيط MangaDex: يمرر أي طلب /md/... إلى MangaDex ويعيد النتيجة
+// وسيط MangaDex: يمرر المسار الأصلي كما هو (بدون إعادة ترميز المعاملات)
 app.all('/md/*', async (req, res) => {
   try {
-    const sub = req.params[0] || '';
-    const qs = new URLSearchParams();
-    for (const k of Object.keys(req.query)) {
-      const vals = [].concat(req.query[k]);
-      vals.forEach(v => qs.append(k, v));
-    }
-    const qstr = qs.toString();
-    const url = `${BASE}/${sub}${qstr ? '?' + qstr : ''}`;
+    const idx = req.originalUrl.indexOf('/md/');
+    const rest = idx >= 0 ? req.originalUrl.slice(idx + 3) : '';
+    const url = BASE + rest;
     const r = await fetch(url, { headers: { 'User-Agent': UA, 'Accept': 'application/json' } });
     const text = await r.text();
     let body = text;
