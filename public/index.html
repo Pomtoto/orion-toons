@@ -1,0 +1,3213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#06060f" />
+    <meta name="description" content="أوريون توونز — منصة عربية حديثة لقراءة المانهوا والمانها والمانغا." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>أوريون · Oriental Toons — ثورة القراءة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ============================================================
+           ROOT · نظام التصميم الثوري
+           ============================================================ */
+        :root {
+            /* — الألوان الأساسية — */
+            --bg-deep: #06060f;
+            --bg-surface: rgba(12, 12, 30, 0.72);
+            --bg-card: rgba(18, 18, 48, 0.68);
+            --bg-card-hover: rgba(28, 28, 68, 0.82);
+
+            /* — الطيف الضوئي — */
+            --prim: #7c3aed;
+            --prim-glow: rgba(124, 58, 237, 0.55);
+            --sec: #f43f5e;
+            --accent: #06b6d4;
+            --gold: #fbbf24;
+            --cosmic: #a78bfa;
+
+            /* — النصوص — */
+            --text-primary: #f0eeff;
+            --text-secondary: #9a96c8;
+            --text-muted: #5f5a8a;
+
+            /* — الحدود & الظلال — */
+            --border-subtle: rgba(124, 58, 237, 0.15);
+            --border-glow: rgba(124, 58, 237, 0.45);
+            --shadow-card: 0 20px 60px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.08);
+            --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.18);
+
+            /* — التشكيل — */
+            --radius-sm: 10px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+
+            /* — الطباعة — */
+            --font: 'Tajawal', system-ui, -apple-system, sans-serif;
+            --header-h: 72px;
+
+            /* — الانتقالات — */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ============================================================
+           إعادة ضبط · Reset
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           شريط التمرير · Scrollbar Stellar
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--prim), var(--sec));
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           خلفية كونية · Cosmic Canvas
+           ============================================================ */
+        #cosmic-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        #cosmic-bg canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+            animation: orbFloat 18s ease-in-out infinite alternate;
+        }
+        .glow-orb:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.25), transparent 70%);
+            top: -10%;
+            right: -5%;
+            animation-duration: 22s;
+        }
+        .glow-orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.18), transparent 70%);
+            bottom: -10%;
+            left: -5%;
+            animation-duration: 26s;
+            animation-delay: -6s;
+        }
+        .glow-orb:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.12), transparent 70%);
+            top: 40%;
+            left: 50%;
+            animation-duration: 20s;
+            animation-delay: -10s;
+        }
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -40px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 30px) scale(0.9);
+            }
+            100% {
+                transform: translate(10px, -20px) scale(1.05);
+            }
+        }
+
+        /* ============================================================
+           HEADER · الهيكل الطافي
+           ============================================================ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--header-h);
+            background: rgba(6, 6, 15, 0.75);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+            transition: background 0.4s;
+        }
+        header.scrolled {
+            background: rgba(6, 6, 15, 0.92);
+        }
+        .header-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            gap: 12px;
+        }
+
+        /* — الشعار — */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .logo-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--prim), var(--sec));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.35);
+            letter-spacing: -1px;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.15) 100%);
+            pointer-events: none;
+        }
+        .logo-text {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #c4b5fd, var(--sec), #fbbf24);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerLogo 8s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes shimmerLogo {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+        .logo-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: var(--sec);
+            color: #fff;
+            font-size: 7px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+            animation: pulseBadge 2s ease-in-out infinite;
+        }
+        @keyframes pulseBadge {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 0.8;
+            }
+        }
+
+        /* — التنقل — */
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+        }
+        .nav a {
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.25s var(--ease-out-expo);
+            position: relative;
+            white-space: nowrap;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--prim), var(--accent));
+            border-radius: 2px;
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+        .nav a:hover,
+        .nav a.active {
+            color: var(--text-primary);
+            background: rgba(124, 58, 237, 0.08);
+        }
+        .nav a:hover::after,
+        .nav a.active::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+        .nav a.active {
+            color: var(--cosmic);
+        }
+
+        /* — بحث — */
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            max-width: 280px;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 10px 44px 10px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-size: 13px;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .search-wrap input:focus {
+            outline: none;
+            border-color: var(--prim);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15), inset 0 0 20px rgba(124, 58, 237, 0.04);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .search-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 13px;
+            pointer-events: none;
+        }
+
+        /* — أزرار الهيدر — */
+        .hdr-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s var(--ease-out-expo);
+            font-size: 15px;
+            backdrop-filter: blur(4px);
+        }
+        .icon-btn:hover {
+            border-color: var(--prim);
+            color: var(--text-primary);
+            background: rgba(124, 58, 237, 0.12);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.08);
+        }
+        .icon-btn.active-btn {
+            border-color: var(--prim);
+            color: var(--prim);
+            background: rgba(124, 58, 237, 0.15);
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: background 0.2s;
+        }
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .menu-btn span {
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s var(--ease-out-expo);
+            display: block;
+        }
+        .menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================================
+           درر الموبايل · Mobile Drawer
+           ============================================================ */
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 1999;
+            opacity: 0;
+            transition: opacity 0.4s var(--ease-out-expo);
+        }
+        .drawer-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 82%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(8, 8, 22, 0.96);
+            backdrop-filter: blur(30px);
+            border-left: 1px solid var(--border-subtle);
+            z-index: 2000;
+            transition: right 0.4s var(--ease-spring);
+            padding-top: calc(var(--header-h) + 20px);
+            overflow-y: auto;
+        }
+        .drawer.open {
+            right: 0;
+        }
+        .drawer ul {
+            list-style: none;
+            padding: 0 16px;
+        }
+        .drawer li {
+            margin-bottom: 4px;
+        }
+        .drawer a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .drawer a:hover {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--text-primary);
+        }
+        .drawer a i {
+            width: 22px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .drawer .drawer-divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin: 12px 16px;
+        }
+
+        /* ============================================================
+           HERO · البطل الكوني
+           ============================================================ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: calc(var(--header-h) + 40px) 20px 50px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-left {
+            position: relative;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.25);
+            border-radius: 40px;
+            font-size: 13px;
+            color: var(--cosmic);
+            margin-bottom: 22px;
+            backdrop-filter: blur(8px);
+        }
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.7);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 62px);
+            font-weight: 900;
+            line-height: 1.08;
+            margin-bottom: 18px;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, #c4b5fd, var(--sec), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 14px 34px;
+            background: linear-gradient(135deg, var(--prim), var(--sec));
+            border: none;
+            border-radius: 40px;
+            color: #fff;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-spring);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 50px rgba(124, 58, 237, 0.5);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-outline {
+            padding: 14px 34px;
+            background: transparent;
+            border: 2px solid var(--border-glow);
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+        }
+        .btn-outline:hover {
+            border-color: var(--prim);
+            background: rgba(124, 58, 237, 0.08);
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 44px;
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .stat-item .stat-num {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--cosmic), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        .stat-item .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* — Hero Visual — */
+        .hero-visual {
+            position: relative;
+            height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .h-card {
+            position: absolute;
+            width: 110px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(124, 58, 237, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(124, 58, 237, 0.05);
+            transition: all 0.4s var(--ease-spring);
+            cursor: default;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+        }
+        .h-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+        .h-card .h-info {
+            padding: 8px 10px;
+            background: rgba(8, 8, 22, 0.85);
+            backdrop-filter: blur(8px);
+        }
+        .h-card .h-title {
+            font-size: 9px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .h-card .h-rating {
+            font-size: 8px;
+            color: var(--gold);
+        }
+
+        .h-card:nth-child(1) {
+            top: 10px;
+            right: 10%;
+            animation: floatA 5s ease-in-out infinite;
+            z-index: 1;
+        }
+        .h-card:nth-child(2) {
+            top: 50%;
+            right: 30%;
+            transform: translateY(-50%) scale(1.15);
+            z-index: 3;
+            width: 135px;
+            border-color: var(--border-glow);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(124, 58, 237, 0.12);
+        }
+        .h-card:nth-child(2) img {
+            height: 190px;
+        }
+        .h-card:nth-child(3) {
+            top: 30px;
+            left: 15%;
+            animation: floatB 5.5s ease-in-out infinite;
+            z-index: 2;
+        }
+        .h-card:nth-child(4) {
+            bottom: 20px;
+            right: 18%;
+            animation: floatC 4.8s ease-in-out infinite reverse;
+            z-index: 1;
+            width: 95px;
+        }
+        .h-card:nth-child(4) img {
+            height: 130px;
+        }
+        .h-card:nth-child(5) {
+            bottom: 30px;
+            left: 20%;
+            animation: floatA 5.2s ease-in-out infinite reverse;
+            z-index: 1;
+            width: 95px;
+        }
+        .h-card:nth-child(5) img {
+            height: 130px;
+        }
+
+        @keyframes floatA {
+            0%,
+            100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(-16px) rotate(-2deg);
+            }
+        }
+        @keyframes floatB {
+            0%,
+            100% {
+                transform: translateY(-6px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(10px) rotate(2deg);
+            }
+        }
+        @keyframes floatC {
+            0%,
+            100% {
+                transform: translateY(4px) rotate(3deg);
+            }
+            50% {
+                transform: translateY(-12px) rotate(3deg);
+            }
+        }
+
+        /* ============================================================
+           الأقسام · Sections
+           ============================================================ */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 60px 20px;
+        }
+        .section-alt {
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.02), transparent);
+        }
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .sec-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .sec-title {
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sec-title i {
+            color: var(--cosmic);
+            font-size: 20px;
+        }
+        .sec-line {
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--prim), var(--sec));
+            border-radius: 3px;
+            margin-top: 6px;
+        }
+
+        /* — تبويبات — */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s var(--ease-out-expo);
+            white-space: nowrap;
+            backdrop-filter: blur(4px);
+        }
+        .tab:hover {
+            border-color: var(--border-glow);
+            color: var(--text-primary);
+            background: rgba(124, 58, 237, 0.06);
+        }
+        .tab.active {
+            background: linear-gradient(135deg, var(--prim), var(--sec));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.3);
+        }
+
+        /* ============================================================
+           شبكة المانجا · Manga Grid
+           ============================================================ */
+        .manga-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+        .manga-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.35s var(--ease-spring);
+            position: relative;
+            backdrop-filter: blur(8px);
+        }
+        .manga-card:hover {
+            border-color: var(--prim);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 2 / 3;
+            background: var(--bg-deep);
+        }
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+        .manga-card:hover .card-img-wrap img {
+            transform: scale(1.06);
+        }
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 6, 15, 0.9) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .manga-card:hover .card-overlay {
+            opacity: 1;
+        }
+        .card-play {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%) translateY(14px);
+            opacity: 0;
+            background: linear-gradient(135deg, var(--prim), var(--sec));
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            padding: 7px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.35s var(--ease-spring);
+            font-family: var(--font);
+            white-space: nowrap;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.3);
+        }
+        .manga-card:hover .card-play {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .badge-kr {
+            background: linear-gradient(135deg, #ec4899, #f97316);
+        }
+        .badge-cn {
+            background: linear-gradient(135deg, #dc2626, #f59e0b);
+        }
+        .badge-jp {
+            background: linear-gradient(135deg, #6366f1, #06b6d4);
+        }
+        .card-rating {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 10px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .card-rating i {
+            color: var(--gold);
+            font-size: 10px;
+        }
+
+        .card-body {
+            padding: 14px;
+        }
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .card-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .tag {
+            padding: 2px 9px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 6px;
+            font-size: 9px;
+            color: var(--cosmic);
+            border: 1px solid rgba(124, 58, 237, 0.06);
+        }
+
+        /* ============================================================
+           التحديثات · Updates + TOP
+           ============================================================ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 30px;
+        }
+        .updates-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .update-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.25s var(--ease-out-expo);
+            backdrop-filter: blur(4px);
+        }
+        .update-row:hover {
+            border-color: var(--prim);
+            background: var(--bg-card-hover);
+            transform: translateX(-4px);
+        }
+        .upd-cover {
+            width: 50px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .upd-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .upd-title {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .upd-ch {
+            font-size: 12px;
+            color: var(--cosmic);
+            font-weight: 500;
+        }
+        .upd-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(124, 58, 237, 0.12);
+            color: var(--cosmic);
+            white-space: nowrap;
+        }
+        .upd-badge.new {
+            background: rgba(6, 182, 212, 0.12);
+            color: var(--accent);
+        }
+
+        /* — TOP — */
+        .top-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .top-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.25s var(--ease-out-expo);
+        }
+        .top-item:hover {
+            border-color: var(--prim);
+            background: var(--bg-card-hover);
+        }
+        .top-num {
+            width: 28px;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text-muted);
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .top-num.gold {
+            color: var(--gold);
+        }
+        .top-num.silver {
+            color: #9ca3af;
+        }
+        .top-num.bronze {
+            color: #b45309;
+        }
+        .top-cover {
+            width: 42px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 7px;
+            flex-shrink: 0;
+        }
+        .top-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .top-title {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .top-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .top-score {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           التصنيفات · Categories
+           ============================================================ */
+        .cats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 14px;
+        }
+        .cat-card {
+            padding: 24px 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-spring);
+            backdrop-filter: blur(4px);
+        }
+        .cat-card:hover {
+            border-color: var(--prim);
+            transform: translateY(-6px) scale(1.03);
+            background: var(--bg-card-hover);
+            box-shadow: var(--shadow-glow);
+        }
+        .cat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .cat-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .cat-count {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* ============================================================
+           التبرع · Donate
+           ============================================================ */
+        .donate-wrap {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(244, 63, 94, 0.04));
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 50px 30px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+        .donate-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(124, 58, 237, 0.04), transparent 60%);
+            pointer-events: none;
+        }
+        .donate-wrap h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .donate-wrap p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 15px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        .donate-wrap .btn-primary {
+            position: relative;
+        }
+
+        /* ============================================================
+           الفوتر · Footer
+           ============================================================ */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-subtle);
+            padding: 50px 20px 28px;
+        }
+        .footer-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 36px;
+        }
+        .foot-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.9;
+            margin: 14px 0 20px;
+        }
+        .socials {
+            display: flex;
+            gap: 8px;
+        }
+        .social-a {
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.25s var(--ease-out-expo);
+            font-size: 15px;
+        }
+        .social-a:hover {
+            background: var(--prim);
+            border-color: var(--prim);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.3);
+        }
+        .foot-col h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+        .foot-col ul {
+            list-style: none;
+        }
+        .foot-col li {
+            margin-bottom: 8px;
+        }
+        .foot-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .foot-col a:hover {
+            color: var(--cosmic);
+        }
+        .foot-bottom {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ============================================================
+           مودال التفاصيل · Detail Modal
+           ============================================================ */
+        .modal-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-bg.open {
+            display: flex;
+        }
+        .modal-sheet {
+            background: var(--bg-surface);
+            backdrop-filter: blur(30px);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-subtle);
+            border-bottom: none;
+            position: relative;
+            animation: slideUp 0.45s var(--ease-spring);
+        }
+        @keyframes slideUp {
+            0% {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .modal-close {
+            position: sticky;
+            top: 14px;
+            right: 16px;
+            float: right;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            margin: 14px 16px 0 0;
+        }
+        .modal-close:hover {
+            background: var(--prim);
+            border-color: var(--prim);
+            color: #fff;
+        }
+        .modal-head {
+            display: flex;
+            gap: 24px;
+            padding: 0 24px 20px;
+            clear: both;
+        }
+        .modal-cover {
+            width: 180px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            flex-shrink: 0;
+        }
+        .modal-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .modal-info .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .modal-metas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .mm-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .mm-item i {
+            color: var(--cosmic);
+            font-size: 12px;
+        }
+        .modal-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-height: 100px;
+            overflow-y: auto;
+            margin-bottom: 14px;
+        }
+        .modal-genres {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+        .modal-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .chapters-area {
+            padding: 0 24px 24px;
+        }
+        .chapters-area h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chapters-area h3 i {
+            color: var(--cosmic);
+        }
+        .chapters-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+        }
+        .ch-btn {
+            padding: 10px 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out-expo);
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+        .ch-btn:hover {
+            border-color: var(--prim);
+            color: var(--text-primary);
+            background: rgba(124, 58, 237, 0.08);
+        }
+        .ch-btn.fresh {
+            color: var(--accent);
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+
+        /* ============================================================
+           القارئ · Reader
+           ============================================================ */
+        .reader-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-deep);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+        }
+        .reader-overlay.open {
+            display: flex;
+        }
+        .reader-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: rgba(6, 6, 15, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            z-index: 5;
+        }
+        .reader-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .reader-head-title {
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .reader-body {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 12px;
+            -webkit-overflow-scrolling: touch;
+            background: radial-gradient(ellipse at center, #0a0a1a, #04040a);
+        }
+        .reader-page {
+            position: relative;
+            width: 100%;
+            max-width: 780px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+            background: var(--bg-deep);
+        }
+        .reader-page img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .reader-page .page-trans-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            background: rgba(124, 58, 237, 0.8);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(8px);
+            font-family: var(--font);
+        }
+        .reader-page:hover .page-trans-btn {
+            opacity: 1;
+        }
+
+        .reader-foot {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(6, 6, 15, 0.92);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .rd-btn {
+            padding: 11px 28px;
+            background: linear-gradient(135deg, var(--prim), var(--sec));
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s var(--ease-spring);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.25);
+        }
+        .rd-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 36px rgba(124, 58, 237, 0.35);
+        }
+        .rd-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+            transform: none !important;
+        }
+        .rd-btn.outline {
+            background: transparent;
+            border: 2px solid var(--border-glow);
+            color: var(--text-primary);
+            box-shadow: none;
+        }
+        .rd-btn.outline:hover {
+            border-color: var(--prim);
+            background: rgba(124, 58, 237, 0.06);
+        }
+
+        /* — لوحة الترجمة — */
+        .translate-panel {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.4s var(--ease-out-expo);
+            background: rgba(6, 6, 18, 0.96);
+            backdrop-filter: blur(30px);
+            border-left: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .translate-panel.open {
+            width: min(340px, 100%);
+        }
+        .trans-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .trans-header h4 {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .trans-controls {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        .trans-controls label {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .trans-controls select {
+            width: 100%;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: var(--font);
+            font-size: 13px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        .trans-controls select:focus {
+            border-color: var(--prim);
+        }
+        .lang-picks {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .lang-pick {
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            color: var(--text-muted);
+            font-family: var(--font);
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .lang-pick:hover {
+            border-color: var(--border-glow);
+            color: var(--text-primary);
+        }
+        .lang-pick.active-lang {
+            background: var(--prim);
+            border-color: var(--prim);
+            color: #fff;
+        }
+        .trans-preview {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        .trans-preview img {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 140px;
+            object-fit: contain;
+            display: none;
+            background: var(--bg-deep);
+        }
+        .trans-preview .empty-preview {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 10px 0;
+        }
+        .trans-result {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px;
+            font-size: 14px;
+            line-height: 2;
+            color: var(--text-primary);
+            direction: rtl;
+            -webkit-overflow-scrolling: touch;
+        }
+        .trans-result .placeholder {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 30px 8px;
+        }
+        .trans-result .placeholder i {
+            font-size: 36px;
+            opacity: 0.2;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .trans-bubble {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+        .trans-bubble .page-num {
+            font-size: 10px;
+            color: var(--cosmic);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .trans-bubble .original-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-subtle);
+            direction: ltr;
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .trans-loading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        .trans-dots {
+            display: flex;
+            gap: 4px;
+        }
+        .trans-dots span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--prim);
+            animation: dotPulse 1.2s infinite;
+        }
+        .trans-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .trans-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes dotPulse {
+            0%,
+            80%,
+            100% {
+                transform: scale(0.4);
+                opacity: 0.3;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .trans-footer {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+        .trans-footer button {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-family: var(--font);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .trans-footer button:hover {
+            border-color: var(--prim);
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           الإشعارات · Toast
+           ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--bg-surface);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9000;
+            transition: all 0.4s var(--ease-spring);
+            opacity: 0;
+            min-width: 240px;
+            max-width: 90vw;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.ok {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .toast.ok i {
+            color: #10b981;
+        }
+        .toast.warn {
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+        .toast.warn i {
+            color: var(--gold);
+        }
+        .toast.error {
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+        .toast.error i {
+            color: var(--sec);
+        }
+        .toast-text {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+           لودر · Loader
+           ============================================================ */
+        .loader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            grid-column: 1 / -1;
+        }
+        .spin {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-subtle);
+            border-top-color: var(--prim);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .skel {
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: skelShine 1.4s infinite;
+            border-radius: var(--radius-sm);
+        }
+        @keyframes skelShine {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        .skel-card {
+            height: 280px;
+        }
+
+        /* ============================================================
+           استجابة · Responsive
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual {
+                display: none;
+            }
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            .menu-btn {
+                display: flex;
+            }
+            .search-wrap {
+                display: none;
+            }
+            .manga-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .cats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .modal-head {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .modal-cover {
+                width: 140px;
+                height: 200px;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 30px;
+            }
+            .hero-stats {
+                gap: 24px;
+            }
+            .stat-item .stat-num {
+                font-size: 24px;
+            }
+            .donate-wrap h2 {
+                font-size: 22px;
+            }
+            .translate-panel.open {
+                width: 100%;
+            }
+            .reader-foot .rd-btn {
+                padding: 9px 16px;
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 420px) {
+            .manga-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .cats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .chapters-wrap {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .sec-title {
+                font-size: 18px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+
+        /* ============================================================
+           مساعدات · Utilities
+           ============================================================ */
+        .hidden {
+            display: none !important;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .w-full {
+            width: 100%;
+        }
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+    
+        /* Modern enhancement layer */
+        :root { color-scheme: dark; }
+        body.light-mode { --bg-deep:#f5f7ff; --bg-surface:rgba(255,255,255,.82); --bg-card:rgba(255,255,255,.78); --bg-card-hover:#fff; --text-primary:#17152d; --text-secondary:#575474; --text-muted:#777392; --border-subtle:rgba(99,72,180,.16); --border-glow:rgba(99,72,180,.4); color-scheme:light; }
+        body.light-mode #cosmic-bg, body.light-mode .glow-orb { opacity:.16; }
+        :focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+        button, a, input, select { min-height:40px; }
+        .app-status { position:fixed; bottom:18px; right:18px; z-index:8000; padding:8px 14px; border:1px solid var(--border-subtle); border-radius:30px; background:var(--bg-surface); color:var(--text-secondary); font-size:11px; opacity:0; transform:translateY(12px); transition:.3s; pointer-events:none; backdrop-filter:blur(16px); }
+        .app-status.show { opacity:1; transform:translateY(0); }
+        .app-status.offline { color:var(--gold); border-color:rgba(251,191,36,.35); }
+        .favorite-btn.saved { color:var(--sec); border-color:var(--sec); background:rgba(244,63,94,.1); }
+        .empty-state { grid-column:1/-1; text-align:center; color:var(--text-muted); padding:48px 20px; }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+        @media (max-width:600px) { .app-status { right:12px; bottom:12px; } }
+</style>
+</head>
+<body>
+    <div class="app-status" id="appStatus" role="status" aria-live="polite"></div>
+
+    <!-- ============================================================
+    الخلفية الكونية
+    ============================================================ -->
+    <div id="cosmic-bg"><canvas id="starCanvas"></canvas></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb"></div>
+
+    <!-- ============================================================
+    الهيدر
+    ============================================================ -->
+    <header id="mainHeader">
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-mark">أو</div>
+                <span class="logo-text">أوريون · توونز</span>
+                <span class="logo-badge">β</span>
+            </a>
+            <ul class="nav" id="navMenu">
+                <li><a href="#" class="active" data-nav="home">الرئيسية</a></li>
+                <li><a href="#popular" data-nav="popular">الأكثر شعبية</a></li>
+                <li><a href="#updates" data-nav="updates">التحديثات</a></li>
+                <li><a href="#cats" data-nav="categories">التصنيفات</a></li>
+                <li><a href="#top" data-nav="top">الأعلى تقييماً</a></li>
+            </ul>
+            <div class="search-wrap">
+                <input type="text" placeholder="ابحث عن عمل..." id="searchInp" />
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="hdr-actions">
+                <button class="icon-btn" id="themeToggle" title="تبديل الثيم" aria-label="تبديل المظهر" aria-pressed="false"><i class="fas fa-moon"></i></button>
+                <button class="icon-btn" id="srchToggle" aria-label="فتح البحث"><i class="fas fa-search"></i></button>
+                <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    درر الموبايل
+    ============================================================ -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <ul>
+            <li><a href="#" data-nav="home"><i class="fas fa-home"></i>الرئيسية</a></li>
+            <li><a href="#popular" data-nav="popular"><i class="fas fa-fire"></i>الأكثر شعبية</a></li>
+            <li><a href="#updates" data-nav="updates"><i class="fas fa-bolt"></i>آخر التحديثات</a></li>
+            <li><a href="#cats" data-nav="categories"><i class="fas fa-th"></i>التصنيفات</a></li>
+            <li><a href="#top" data-nav="top"><i class="fas fa-trophy"></i>الأعلى تقييماً</a></li>
+            <li class="drawer-divider"></li>
+            <li><a href="#" id="drawerThemeToggle"><i class="fas fa-moon"></i>تبديل الثيم</a></li>
+        </ul>
+    </div>
+
+    <!-- ============================================================
+    HERO · البطل
+    ============================================================ -->
+    <section class="hero" id="home">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    🔥 المنصة العربية الثورية للمانهوا
+                </div>
+                <h1>
+                    اقرأ <span class="gradient-text">المانهوا</span><br />
+                    و<span class="gradient-text">المانها</span> بعربي فائق
+                </h1>
+                <p class="hero-desc">
+                    آلاف القصص الكورية والصينية واليابانية مترجمة بجودة احترافية،
+                    مع تجربة قراءة سلسة وخالية من الإعلانات.
+                </p>
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="scrollToSection('popular')">
+                        <i class="fas fa-play"></i> ابدأ القراءة
+                    </button>
+                    <button class="btn-outline" onclick="scrollToSection('updates')">
+                        <i class="fas fa-bolt"></i> التحديثات
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-num" id="statManga">...</div>
+                        <div class="stat-label">عمل متاح</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">10K+</div>
+                        <div class="stat-label">قارئ نشط</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">3</div>
+                        <div class="stat-label">لغات مصدر</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-stack" id="heroStack"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    الأكثر شعبية
+    ============================================================ -->
+    <section class="section" id="popular">
+        <div class="container">
+            <div class="sec-header">
+                <div>
+                    <div class="sec-title"><i class="fas fa-fire"></i> الأكثر شعبية</div>
+                    <div class="sec-line"></div>
+                </div>
+                <div class="tabs" id="filterTabs">
+                    <button class="tab active" data-f="all">الكل</button>
+                    <button class="tab" data-f="korean">🇰🇷 كوري</button>
+                    <button class="tab" data-f="chinese">🇨🇳 صيني</button>
+                    <button class="tab" data-f="japanese">🇯🇵 ياباني</button>
+                    <button class="tab" data-f="action">⚔️ أكشن</button>
+                    <button class="tab" data-f="romance">💕 رومانسي</button>
+                </div>
+            </div>
+            <div class="manga-grid" id="mangaGrid">
+                <div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div><div class="skel skel-card" aria-hidden="true"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    التحديثات + الأعلى تقييماً
+    ============================================================ -->
+    <section class="section section-alt" id="updates">
+        <div class="container">
+            <div class="two-col" id="twoCol">
+                <div>
+                    <div class="sec-header">
+                        <div>
+                            <div class="sec-title"><i class="fas fa-bolt"></i> آخر التحديثات</div>
+                            <div class="sec-line"></div>
+                        </div>
+                    </div>
+                    <div class="updates-list" id="updateList">
+                        <div class="loader"><div class="spin"></div></div>
+                    </div>
+                </div>
+                <div id="topSection">
+                    <div class="sec-header">
+                        <div>
+                            <div class="sec-title"><i class="fas fa-trophy"></i> الأعلى تقييماً</div>
+                            <div class="sec-line"></div>
+                        </div>
+                    </div>
+                    <div class="top-list" id="topList">
+                        <div class="loader"><div class="spin"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    التصنيفات
+    ============================================================ -->
+    <section class="section" id="cats">
+        <div class="container">
+            <div class="sec-header">
+                <div>
+                    <div class="sec-title"><i class="fas fa-layer-group"></i> التصنيفات</div>
+                    <div class="sec-line"></div>
+                </div>
+            </div>
+            <div class="cats-grid" id="catsGrid">
+                <div class="cat-card" data-cat="action"><span class="cat-icon">⚔️</span><div class="cat-name">أكشن</div><div class="cat-count" id="cc-action">...</div></div>
+                <div class="cat-card" data-cat="romance"><span class="cat-icon">💕</span><div class="cat-name">رومانسي</div><div class="cat-count" id="cc-romance">...</div></div>
+                <div class="cat-card" data-cat="fantasy"><span class="cat-icon">🐉</span><div class="cat-name">فانتازيا</div><div class="cat-count" id="cc-fantasy">...</div></div>
+                <div class="cat-card" data-cat="drama"><span class="cat-icon">🎭</span><div class="cat-name">دراما</div><div class="cat-count" id="cc-drama">...</div></div>
+                <div class="cat-card" data-cat="comedy"><span class="cat-icon">😂</span><div class="cat-name">كوميدي</div><div class="cat-count" id="cc-comedy">...</div></div>
+                <div class="cat-card" data-cat="adventure"><span class="cat-icon">🗺️</span><div class="cat-name">مغامرات</div><div class="cat-count" id="cc-adventure">...</div></div>
+                <div class="cat-card" data-cat="horror"><span class="cat-icon">👻</span><div class="cat-name">رعب</div><div class="cat-count" id="cc-horror">...</div></div>
+                <div class="cat-card" data-cat="supernatural"><span class="cat-icon">✨</span><div class="cat-name">خارق</div><div class="cat-count" id="cc-supernatural">...</div></div>
+                <div class="cat-card" data-cat="sports"><span class="cat-icon">⚽</span><div class="cat-name">رياضة</div><div class="cat-count" id="cc-sports">...</div></div>
+                <div class="cat-card" data-cat="sci-fi"><span class="cat-icon">🚀</span><div class="cat-name">خيال علمي</div><div class="cat-count" id="cc-sci-fi">...</div></div>
+                <div class="cat-card" data-cat="isekai"><span class="cat-icon">🌀</span><div class="cat-name">إيسيكاي</div><div class="cat-count" id="cc-isekai">...</div></div>
+                <div class="cat-card" data-cat="psychological"><span class="cat-icon">🧠</span><div class="cat-name">نفسي</div><div class="cat-count" id="cc-psychological">...</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    التبرع
+    ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="donate-wrap">
+                <h2>💜 ساعد في إبقاء الموقع مجانياً</h2>
+                <p>موقعنا مجاني بالكامل وبدون إعلانات مزعجة. دعمك يساعدنا على الاستمرار والتطوير.</p>
+                <button class="btn-primary" onclick="showToast('شكراً! سيُضاف رابط التبرع قريباً','ok')">
+                    <i class="fas fa-heart"></i> ادعمنا الآن
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    الفوتر
+    ============================================================ -->
+    <footer>
+        <div class="footer-inner">
+            <div class="foot-brand">
+                <a href="#" class="logo">
+                    <div class="logo-mark">أو</div>
+                    <span class="logo-text">أوريون · توونز</span>
+                </a>
+                <p>منصتك العربية الأولى لقراءة المانهوا الكورية والمانها الصينية والمانغا اليابانية بجودة عالية وترجمة احترافية.</p>
+                <div class="socials">
+                    <a href="#" class="social-a"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-a"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-a"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-a"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="foot-col"><h4>الموقع</h4><ul><li><a href="#">الرئيسية</a></li><li><a href="#popular">الأكثر شعبية</a></li><li><a href="#updates">التحديثات</a></li><li><a href="#cats">التصنيفات</a></li></ul></div>
+            <div class="foot-col"><h4>الأنواع</h4><ul><li><a href="#">مانهوا كورية</a></li><li><a href="#">مانها صينية</a></li><li><a href="#">مانغا يابانية</a></li><li><a href="#">ويب تون</a></li></ul></div>
+            <div class="foot-col"><h4>معلومات</h4><ul><li><a href="#">من نحن</a></li><li><a href="#">اتصل بنا</a></li><li><a href="#">الخصوصية</a></li><li><a href="#">الشروط</a></li></ul></div>
+        </div>
+        <div class="foot-bottom">© 2025 أوريون · توونز — ثورة القراءة العربية. جميع الحقوق محفوظة.</div>
+    </footer>
+
+    <!-- ============================================================
+    مودال التفاصيل
+    ============================================================ -->
+    <div class="modal-bg" id="detailModal">
+        <div class="modal-sheet">
+            <button class="modal-close" onclick="closeDetail()"><i class="fas fa-times"></i></button>
+            <div class="modal-head">
+                <img src="" class="modal-cover" id="mCover" alt="" />
+                <div class="modal-info">
+                    <div class="modal-title" id="mTitle"></div>
+                    <div class="modal-metas">
+                        <div class="mm-item"><i class="fas fa-star"></i><span id="mRating"></span></div>
+                        <div class="mm-item"><i class="fas fa-book"></i><span id="mChapters"></span></div>
+                        <div class="mm-item"><i class="fas fa-globe"></i><span id="mOrigin"></span></div>
+                        <div class="mm-item"><i class="fas fa-sync"></i><span id="mStatus"></span></div>
+                    </div>
+                    <p class="modal-desc" id="mDesc"></p>
+                    <div class="modal-genres" id="mGenres"></div>
+                    <div class="modal-btns">
+                        <button class="btn-primary" onclick="startFromDetail()"><i class="fas fa-play"></i> ابدأ القراءة</button>
+                        <button class="btn-outline" onclick="showToast('تمت الإضافة للمفضلة!','ok')"><i class="far fa-heart"></i> المفضلة</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chapters-area">
+                <h3><i class="fas fa-list"></i> الفصول المتاحة</h3>
+                <div class="chapters-wrap" id="chGrid"><div class="loader"><div class="spin"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    القارئ
+    ============================================================ -->
+    <div class="reader-overlay" id="readerOverlay">
+        <div class="reader-head">
+            <div class="reader-nav">
+                <button class="icon-btn" onclick="closeReader()"><i class="fas fa-arrow-right"></i></button>
+                <span class="reader-head-title" id="readerTitle"></span>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center">
+                <button class="icon-btn" id="transToggleBtn" onclick="toggleTransPanel()" title="ترجمة الصفحة">
+                    <i class="fas fa-language"></i>
+                </button>
+                <button class="icon-btn" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+                <button class="icon-btn" onclick="closeReader()"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <div style="display:flex;flex:1;overflow:hidden;min-height:0">
+            <div class="reader-body" id="readerBody" style="flex:1;min-width:0"></div>
+
+            <!-- لوحة الترجمة -->
+            <div class="translate-panel" id="transPanel">
+                <div class="trans-header">
+                    <h4><i class="fas fa-language" style="color:var(--cosmic)"></i> ترجمة تلقائية للنص</h4>
+                    <button class="icon-btn" onclick="toggleTransPanel()" style="width:32px;height:32px;border-radius:8px">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="trans-controls">
+                    <label>اختر الصفحة:</label>
+                    <select id="pageSelect"><option value="">-- اختر --</option></select>
+                    <div style="display:flex;gap:6px;margin-top:6px">
+                        <button onclick="translateCurrentPage()" style="flex:1;padding:8px 12px;background:linear-gradient(135deg,var(--prim),var(--sec));border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer">
+                            <i class="fas fa-magic"></i> استخرج وترجم
+                        </button>
+                        <button onclick="mergeCurrentPage()" style="flex:1;padding:8px 12px;background:linear-gradient(135deg,var(--accent),var(--prim));border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer" title="ترجمة الصورة ودمج النص عليها">
+                            <i class="fas fa-layer-group"></i> دمج على الصورة
+                        </button>
+                        <button onclick="translateAllVisiblePages()" style="padding:8px 14px;background:rgba(255,255,255,0.04);border:1px solid var(--border-subtle);border-radius:10px;color:var(--text-secondary);font-family:var(--font);font-size:12px;cursor:pointer" title="ترجمة الصفحات الظاهرة">
+                            <i class="fas fa-layer-group"></i>
+                        </button>
+                    </div>
+                    <label style="margin-top:10px">ترجم إلى:</label>
+                    <div class="lang-picks" id="langPicks">
+                        <button class="lang-pick active-lang" data-lang="العربية">🇸🇦 عربي</button>
+                        <button class="lang-pick" data-lang="الإنجليزية">🇬🇧 English</button>
+                        <button class="lang-pick" data-lang="الفرنسية">🇫🇷 Français</button>
+                        <button class="lang-pick" data-lang="التركية">🇹🇷 Türkçe</button>
+                        <button class="lang-pick" data-lang="الإسبانية">🇪🇸 Español</button>
+                        <button class="lang-pick" data-lang="الألمانية">🇩🇪 Deutsch</button>
+                    </div>
+                </div>
+                <div class="trans-preview" style="padding:12px 16px">
+                    <div class="empty-preview" id="transPreviewEmpty">📝 تتم ترجمة النص المستخرج من الصفحة تلقائياً</div>
+                </div>
+                <div class="trans-result" id="transResult">
+                    <div class="placeholder">
+                        <i class="fas fa-language"></i>
+                        <span>يتم استخراج الكلام من الصفحة وترجمته تلقائياً<br />بدون إرسال صورة إلى خدمة الترجمة</span>
+                    </div>
+                </div>
+                <div class="trans-footer">
+                    <button onclick="copyTranslation()"><i class="fas fa-copy"></i> نسخ الترجمة</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="reader-foot">
+            <button class="rd-btn outline" id="rdPrev" onclick="prevChapter()"><i class="fas fa-chevron-right"></i> السابق</button>
+            <button class="rd-btn" onclick="toggleTransPanel()" style="background:linear-gradient(135deg,var(--prim),var(--accent));min-width:auto;padding:11px 18px">
+                <i class="fas fa-language"></i> ترجم
+            </button>
+            <button class="rd-btn outline" id="rdNext" onclick="nextChapter()">التالي <i class="fas fa-chevron-left"></i></button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    الإشعارات
+    ============================================================ -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-text" id="toastText"></span>
+    </div>
+
+    <!-- ============================================================
+    جافا سكريبت · التطبيق الكامل
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script>
+        // ============================================================
+        // 1. الخلفية الكونية · Starfield
+        // ============================================================
+        (function initStars() {
+            const canvas = document.getElementById('starCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, stars = [];
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            for (let i = 0; i < 300; i++) {
+                stars.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 1.4 + 0.3,
+                    a: Math.random() * 0.7 + 0.2,
+                    dx: (Math.random() - 0.5) * 0.15,
+                    dy: (Math.random() - 0.5) * 0.15,
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                for (const s of stars) {
+                    s.x += s.dx;
+                    s.y += s.dy;
+                    if (s.x < 0) s.x = w;
+                    if (s.x > w) s.x = 0;
+                    if (s.y < 0) s.y = h;
+                    if (s.y > h) s.y = 0;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        // ============================================================
+        // 2. النظام الأساسي
+        // ============================================================
+        const API = '/md';
+        const IQ = 'data-saver';
+        let allManga = [];
+        let curManga = null;
+        let chapters = [];
+        let curChIdx = 0;
+        let curServerInfo = null;
+        let pageUrls = [];
+        let transLang = 'العربية';
+        let lastTranslation = '';
+        let panelOpen = false;
+
+        // ============================================================
+        // 3. الأدوات المساعدة
+        // ============================================================
+        function escapeHtml(value) {
+            return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+        }
+
+        function title(m) {
+            const t = m.attributes.title;
+            return t.ar || t.en || t.ja || t['ja-ro'] || 'بلا عنوان';
+        }
+
+        function desc(m) {
+            const d = m.attributes.description || {};
+            return d.ar || d.en || d.ja || 'لا يوجد وصف';
+        }
+
+        function coverUrl(m) {
+            const c = m.relationships.find(r => r.type === 'cover_art');
+            const fn = c?.attributes?.fileName;
+            return fn ? `https://uploads.mangadex.org/covers/${m.id}/${fn}.256.jpg` :
+                'https://via.placeholder.com/256x384/0f0f22/7c3aed?text=OT';
+        }
+
+        function origin(m) {
+            const tags = (m.attributes.tags || []).map(t => (t.attributes?.name?.en || '').toLowerCase()).join(' ');
+            const txt = JSON.stringify(m.attributes.title).toLowerCase() + ' ' + tags;
+            if (/manhwa|webtoon|korean/.test(txt)) return 'korean';
+            if (/manhua|chinese/.test(txt)) return 'chinese';
+            const langs = m.attributes.availableTranslatedLanguages || [];
+            if (langs.includes('ko')) return 'korean';
+            if (langs.includes('zh')) return 'chinese';
+            return 'japanese';
+        }
+
+        function originLabel(o) {
+            return o === 'korean' ? '🇰🇷 كوري' : o === 'chinese' ? '🇨🇳 صيني' : '🇯🇵 ياباني';
+        }
+
+        function badgeClass(o) {
+            return o === 'korean' ? 'badge-kr' : o === 'chinese' ? 'badge-cn' : 'badge-jp';
+        }
+
+        function stableNumber(id, min, max) { let n=0; for (const c of id) n=(n*31+c.charCodeAt(0))>>>0; return min+(n%(max-min+1)); }
+        function rating(id) { return (stableNumber(id, 70, 99)/10).toFixed(1); }
+        function chCount(id) { return stableNumber(id, 50, 249); }
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // 4. Toast
+        // ============================================================
+        let toastTimer = null;
+
+        function showToast(msg, type = 'ok') {
+            const el = document.getElementById('toast');
+            const txt = document.getElementById('toastText');
+            txt.textContent = msg;
+            el.className = 'toast show ' + type;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+        }
+
+        // ============================================================
+        // 5. تحميل المانجا من API
+        // ============================================================
+        async function loadManga() {
+            try {
+                const r = await fetch(
+                    `${API}/manga?includes[]=cover_art&order[followedCount]=desc&limit=60&contentRating[]=safe&contentRating[]=suggestive`
+                    );
+                const d = await r.json();
+                if (!d.data?.length) { showGridError(); return; }
+                allManga = d.data.map(m => ({
+                    id: m.id,
+                    title: title(m),
+                    titleEn: m.attributes.title?.en || '',
+                    cover: coverUrl(m),
+                    origin: origin(m),
+                    genres: (m.attributes.tags || [])
+                        .filter(t => t.attributes?.group === 'genre')
+                        .map(t => t.attributes?.name?.en || '')
+                        .filter(Boolean),
+                    rating: rating(m.id),
+                    chapters: chCount(m.id),
+                    year: m.attributes.year || 2024,
+                    status: m.attributes.status === 'completed' ? 'مكتمل' : 'مستمر',
+                    desc: desc(m),
+                    raw: m
+                }));
+                document.getElementById('statManga').textContent = allManga.length + '+';
+                renderGrid(allManga);
+                renderUpdates();
+                renderTop();
+                renderHeroCards();
+                updateCatCounts();
+            } catch (e) {
+                console.error(e);
+                showGridError();
+            }
+        }
+
+        function showGridError() {
+            document.getElementById('mangaGrid').innerHTML =
+                '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px">⚠️ فشل تحميل البيانات. تحقق من الاتصال.</p>';
+        }
+
+        // ============================================================
+        // 6. العرض
+        // ============================================================
+        function renderGrid(data) {
+            const g = document.getElementById('mangaGrid');
+            if (!data.length) {
+                g.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:40px">لا توجد نتائج</p>';
+                return;
+            }
+            g.innerHTML = data.map(m => `
+            <div class="manga-card" onclick="openDetail('${m.id}')">
+              <div class="card-img-wrap">
+                <img src="${m.cover}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/256x384/0f0f22/7c3aed?text=OT'">
+                <div class="card-overlay"></div>
+                <button class="card-play" onclick="event.stopPropagation();openDetail('${m.id}')"><i class="fas fa-play"></i> اقرأ الآن</button>
+                <span class="card-badge ${badgeClass(m.origin)}">${originLabel(m.origin)}</span>
+                <div class="card-rating"><i class="fas fa-star"></i>${m.rating}</div>
+              </div>
+              <div class="card-body">
+                <div class="card-title">${m.title}</div>
+                <div class="card-meta"><span>${m.chapters} فصل</span><span>${m.status}</span></div>
+                <div class="card-tags">${m.genres.slice(0,2).map(g => `<span class="tag">${g}</span>`).join('')}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function renderUpdates() {
+            const list = document.getElementById('updateList');
+            const items = allManga.slice(0, 14);
+            list.innerHTML = items.map((m, i) => `
+            <div class="update-row" onclick="openDetail('${m.id}')">
+              <img class="upd-cover" src="${m.cover}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/60x80/0f0f22/7c3aed?text=OT'">
+              <div class="upd-info">
+                <div class="upd-title">${originLabel(m.origin)} ${m.title}</div>
+                <div class="upd-ch">الفصل ${Math.floor(Math.random() * m.chapters) + 1}</div>
+              </div>
+              <span class="upd-badge ${i < 4 ? 'new' : ''}">${i < 4 ? 'جديد' : 'مترجم'}</span>
+            </div>
+          `).join('');
+        }
+
+        function renderTop() {
+            const tl = document.getElementById('topList');
+            const sorted = [...allManga].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 10);
+            const nc = ['gold', 'silver', 'bronze'];
+            tl.innerHTML = sorted.map((m, i) => `
+            <div class="top-item" onclick="openDetail('${m.id}')">
+              <div class="top-num ${nc[i] || ''}">${i + 1}</div>
+              <img class="top-cover" src="${m.cover}" alt="${m.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/60x80/0f0f22/7c3aed?text=OT'">
+              <div class="top-info">
+                <div class="top-title">${m.title}</div>
+                <div class="top-meta">${m.chapters} فصل · ${m.status}</div>
+              </div>
+              <div class="top-score">⭐ ${m.rating}</div>
+            </div>
+          `).join('');
+        }
+
+        function renderHeroCards() {
+            const stack = document.getElementById('heroStack');
+            const picks = allManga.slice(0, 5);
+            stack.innerHTML = picks.map(m => `
+            <div class="h-card">
+              <img src="${m.cover}" alt="${m.title}" onerror="this.src='https://via.placeholder.com/150x220/0f0f22/7c3aed?text=OT'">
+              <div class="h-info">
+                <div class="h-title">${m.title}</div>
+                <div class="h-rating">⭐ ${m.rating}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function updateCatCounts() {
+            const cats = ['action', 'romance', 'fantasy', 'drama', 'comedy', 'adventure',
+                'horror', 'supernatural', 'sports', 'sci-fi', 'isekai', 'psychological'
+            ];
+            cats.forEach(c => {
+                const el = document.getElementById(`cc-${c}`);
+                if (!el) return;
+                const count = allManga.filter(m => m.genres.some(g => g.toLowerCase().includes(c.replace('-', ' '))))
+                    .length || Math.floor(Math.random() * 80 + 20);
+                el.textContent = count + ' عمل';
+            });
+        }
+
+        // ============================================================
+        // 7. البحث والفلترة
+        // ============================================================
+        function doSearch(q) {
+            q = q.toLowerCase().trim();
+            if (!q) { renderGrid(allManga); return; }
+            renderGrid(allManga.filter(m =>
+                m.title.toLowerCase().includes(q) ||
+                m.titleEn.toLowerCase().includes(q) ||
+                m.genres.some(g => g.toLowerCase().includes(q))
+            ));
+        }
+
+        function setupFilters() {
+            document.querySelectorAll('.tab').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const f = btn.dataset.f;
+                    let res = allManga;
+                    if (f === 'korean') res = allManga.filter(m => m.origin === 'korean');
+                    else if (f === 'chinese') res = allManga.filter(m => m.origin === 'chinese');
+                    else if (f === 'japanese') res = allManga.filter(m => m.origin === 'japanese');
+                    else if (f === 'action') res = allManga.filter(m => m.genres.some(g => g.toLowerCase().includes(
+                    'action')));
+                    else if (f === 'romance') res = allManga.filter(m => m.genres.some(g => g.toLowerCase().includes(
+                        'romance')));
+                    renderGrid(res);
+                });
+            });
+            document.querySelectorAll('.cat-card').forEach(c => {
+                c.addEventListener('click', () => {
+                    const cat = c.dataset.cat.toLowerCase();
+                    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+                    document.querySelector('.tab[data-f="all"]').classList.add('active');
+                    renderGrid(allManga.filter(m => m.genres.some(g => g.toLowerCase().includes(cat))));
+                    scrollToSection('popular');
+                });
+            });
+        }
+
+        // ============================================================
+        // 8. مودال التفاصيل
+        // ============================================================
+        async function openDetail(id) {
+            const m = allManga.find(x => x.id === id);
+            if (!m) return;
+            curManga = m;
+            document.getElementById('mCover').src = m.cover;
+            document.getElementById('mTitle').textContent = m.title;
+            document.getElementById('mRating').textContent = m.rating + '/10';
+            document.getElementById('mChapters').textContent = m.chapters + ' فصل';
+            document.getElementById('mOrigin').textContent = originLabel(m.origin);
+            document.getElementById('mStatus').textContent = m.status;
+            document.getElementById('mDesc').textContent = m.desc.substring(0, 300) + (m.desc.length > 300 ? '...' : '');
+            document.getElementById('mGenres').innerHTML = m.genres.slice(0, 6).map(g =>
+                `<span class="tag" style="padding:4px 10px;font-size:11px">${g}</span>`
+            ).join('');
+            document.getElementById('detailModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            await loadChapters(id);
+        }
+
+        function closeDetail() {
+            document.getElementById('detailModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        async function loadChapters(id) {
+            const cg = document.getElementById('chGrid');
+            cg.innerHTML = '<div class="loader"><div class="spin"></div></div>';
+            try {
+                // طلب واحد بسيط وصحيح: كل اللغات + safe/suggestive فقط
+                let r = await fetch(`${API}/manga/${id}/feed?limit=500&order[chapter]=desc&translatedLanguage[]=en&translatedLanguage[]=ar&contentRating[]=safe&contentRating[]=suggestive`);
+                let d = await r.json();
+                chapters = (d.data || []).filter(c => c.attributes.pages > 0 && !c.attributes.externalUrl);
+                // إذا ما في فصول إنجليزية/عربية، نجلب كل اللغات
+                if (!chapters.length) {
+                    r = await fetch(`${API}/manga/${id}/feed?limit=500&order[chapter]=desc&contentRating[]=safe&contentRating[]=suggestive`);
+                    d = await r.json();
+                    chapters = (d.data || []).filter(c => c.attributes.pages > 0 && !c.attributes.externalUrl);
+                }
+                if (!chapters.length) {
+                    cg.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:20px">لا توجد فصول</p>';
+                    return;
+                }
+                const seen = new Map();
+                const langPriority = { ar: 0, en: 1 };
+                chapters.forEach(c => {
+                    const num = c.attributes.chapter || '?';
+                    const lang = c.attributes.translatedLanguage;
+                    const pri = langPriority[lang] ?? 99;
+                    if (!seen.has(num) || pri < seen.get(num).pri) {
+                        seen.set(num, { ch: c, pri });
+                    }
+                });
+                chapters = [...seen.values()].map(v => v.ch);
+
+                function langFlag(lang) {
+                    const f = { ar: '🇸🇦', en: '🇬🇧', fr: '🇫🇷', es: '🇪🇸', pt: '🇧🇷', ru: '🇷🇺', de: '🇩🇪', it: '🇮🇹',
+                        id: '🇮🇩', tr: '🇹🇷', vi: '🇻🇳', th: '🇹🇭', ko: '🇰🇷', zh: '🇨🇳', ja: '🇯🇵', he: '🇮🇱', ka: '🇬🇪' };
+                    return f[lang] || '🌐';
+                }
+                cg.innerHTML = chapters.slice(0, 200).map((c, i) => {
+                    const num = c.attributes.chapter || (i + 1);
+                    const lang = c.attributes.translatedLanguage;
+                    const title = c.attributes.title ? ` - ${c.attributes.title}` : '';
+                    return `<button class="ch-btn ${i < 5 ? 'fresh' : ''}" onclick="doRead('${c.id}',${parseFloat(num) || i + 1},'فصل ${num}')">
+                ${langFlag(lang)} فصل ${num}${title ? `<br><small style="color:var(--text-muted);font-size:9px">${title.substring(0,20)}</small>` : ''}
+              </button>`;
+                }).join('');
+            } catch (e) {
+                console.error(e);
+                cg.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted)">⚠️ فشل تحميل الفصول</p>';
+            }
+        }
+
+        // ============================================================
+        // 9. القارئ
+        // ============================================================
+        async function doRead(chId, num, tit) {
+            closeDetail();
+            const ro = document.getElementById('readerOverlay');
+            const rb = document.getElementById('readerBody');
+            document.getElementById('readerTitle').textContent = 'جاري التحميل...';
+            rb.innerHTML = '<div class="loader"><div class="spin"></div></div>';
+            ro.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            try {
+                const r = await fetch(`${API}/at-home/server/${chId}`);
+                const d = await r.json();
+                if (d.result !== 'ok') throw new Error();
+                curServerInfo = { baseUrl: d.baseUrl, hash: d.chapter.hash, pages: d.chapter[IQ] || d.chapter.data };
+                document.getElementById('readerTitle').textContent = `${curManga?.title || ''} - ${tit}`;
+                rb.innerHTML = '';
+                curChIdx = chapters.findIndex(c => c.id === chId);
+                pageUrls = curServerInfo.pages.map(fn => `${curServerInfo.baseUrl}/${IQ}/${curServerInfo.hash}/${fn}`);
+                buildPageSelect();
+                // ترجمة تلقائية لأول صفحة عند فتح الفصل
+                setTimeout(() => translateCurrentPage(), 700);
+
+                curServerInfo.pages.forEach((fn, i) => {
+                    const url = pageUrls[i];
+                    const div = document.createElement('div');
+                    div.className = 'reader-page';
+                    const btn = document.createElement('button');
+                    btn.className = 'page-trans-btn';
+                    btn.innerHTML = '<i class="fas fa-language"></i> ترجم';
+                    btn.onclick = (e) => {
+                        e.stopPropagation();
+                        document.getElementById('pageSelect').value = i;
+                        if (!panelOpen) toggleTransPanel();
+                        translateCurrentPage();
+                    };
+                    const img = document.createElement('img');
+                    img.alt = `صفحة ${i + 1}`;
+                    img.loading = i < 3 ? 'eager' : 'lazy';
+                    if (i >= 3) {
+                        const obs = new IntersectionObserver(en => { if (en[0].isIntersecting) { img.src =
+                            url;
+                                obs.disconnect(); } }, { rootMargin: '400px' });
+                        obs.observe(div);
+                    } else { img.src = url; }
+                    img.onerror = () => img.src = 'https://via.placeholder.com/720x1020/0f0f22/7c3aed?text=❌';
+                    div.appendChild(btn);
+                    div.appendChild(img);
+                    rb.appendChild(div);
+                });
+                rb.scrollTop = 0;
+                document.getElementById('rdPrev').disabled = curChIdx <= 0;
+                document.getElementById('rdNext').disabled = curChIdx >= chapters.length - 1;
+            } catch (e) {
+                rb.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:40px">⚠️ فشل تحميل الفصل</p>';
+            }
+        }
+
+        function startFromDetail() {
+            if (!chapters.length) { showToast('لا توجد فصول متاحة', 'warn'); return; }
+            const c = chapters[0];
+            doRead(c.id, c.attributes.chapter || 1, `فصل ${c.attributes.chapter || 1}`);
+        }
+
+        function closeReader() {
+            document.getElementById('readerOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+            panelOpen = false;
+            document.getElementById('transPanel').classList.remove('open');
+        }
+
+        async function nextChapter() {
+            if (curChIdx >= chapters.length - 1) return;
+            const c = chapters[curChIdx + 1];
+            await doRead(c.id, c.attributes.chapter || (curChIdx + 2), `فصل ${c.attributes.chapter || (curChIdx + 2)}`);
+        }
+
+        async function prevChapter() {
+            if (curChIdx <= 0) return;
+            const c = chapters[curChIdx - 1];
+            await doRead(c.id, c.attributes.chapter || curChIdx, `فصل ${c.attributes.chapter || curChIdx}`);
+        }
+
+        function toggleFullscreen() {
+            document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+        }
+
+        // ============================================================
+        // 10. لوحة الترجمة (OCR + Claude Vision)
+        // ============================================================
+        function toggleTransPanel() {
+            panelOpen = !panelOpen;
+            const panel = document.getElementById('transPanel');
+            panel.classList.toggle('open', panelOpen);
+        }
+
+        function buildPageSelect() {
+            const sel = document.getElementById('pageSelect');
+            sel.innerHTML = '<option value="">-- اختر صفحة --</option>';
+            pageUrls.forEach((_, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = `صفحة ${i + 1}`;
+                sel.appendChild(opt);
+            });
+            if (pageUrls.length > 0) sel.value = 0;
+        }
+
+        function setTransLang(lang, btn) {
+            transLang = lang;
+            document.querySelectorAll('.lang-pick').forEach(b => b.classList.remove('active-lang'));
+            if (btn) btn.classList.add('active-lang');
+        }
+
+        function imgUrlToBase64(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    try {
+                        const data = canvas.toDataURL('image/jpeg', 0.85);
+                        resolve(data.split(',')[1]);
+                    } catch (e) { reject(new Error('CORS')); }
+                };
+                img.onerror = () => reject(new Error('فشل التحميل'));
+                img.src = url;
+            });
+        }
+
+        async function extractTextFromPage(url) {
+            if (!window.Tesseract) throw new Error('محرك OCR غير متاح. تحقق من الاتصال.');
+            const result = await Tesseract.recognize(url, 'eng+jpn+kor+chi_sim', {
+                logger: m => {
+                    if (m.status === 'recognizing text') {
+                        const pct = Math.round((m.progress || 0) * 100);
+                        document.getElementById('transResult').innerHTML = `<div class="trans-loading"><div class="trans-dots"><span></span><span></span><span></span></div><span>استخراج النص من الصفحة ${pct}%...</span></div>`;
+                    }
+                }
+            });
+            return (result.data.text || '').replace(/\s{2,}/g, ' ').trim();
+        }
+
+        async function translatePlainText(text, target) {
+            if (!text) return '';
+            // Web Translator API إن كان متاحاً في المتصفح
+            if ('Translator' in self) {
+                try {
+                    const availability = await Translator.availability({sourceLanguage:'en', targetLanguage:'ar'});
+                    if (availability !== 'unavailable') {
+                        const translator = await Translator.create({sourceLanguage:'en', targetLanguage:'ar'});
+                        return await translator.translate(text);
+                    }
+                } catch (_) {}
+            }
+            // احتياطي نصي فقط: لا يتم إرسال الصورة، بل النص المستخرج فقط
+            const pair = target === 'العربية' ? 'en|ar' : target === 'الإنجليزية' ? 'auto|en' : 'auto|'+({ 'الفرنسية':'fr','التركية':'tr','الإسبانية':'es','الألمانية':'de' }[target] || 'ar');
+            const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text.slice(0, 4500)) + '&langpair=' + pair;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('تعذر الوصول إلى خدمة الترجمة');
+            const data = await response.json();
+            return data.responseData?.translatedText || '';
+        }
+
+        async function mergeCurrentPage() {
+            const idx = parseInt(document.getElementById('pageSelect').value);
+            if (isNaN(idx) || !pageUrls[idx]) { showToast('اختر صفحة أولاً', 'warn'); if (!panelOpen) toggleTransPanel(); return; }
+            const result = document.getElementById('transResult');
+            result.innerHTML = `<div class="trans-loading"><div class="trans-dots"><span></span><span></span><span></span></div><span>قراءة النص وترجمته ودمجه على الصورة...</span></div>`;
+            try {
+                const ocr = await Tesseract.recognize(pageUrls[idx], 'eng+jpn+kor+chi_sim');
+                const lines = (ocr.data.lines || []).filter(line => line.text && line.text.trim() && line.confidence > 18);
+                if (!lines.length) throw new Error('لم يتم العثور على نص قابل للدمج');
+                const translations = await Promise.all(lines.map(line => translatePlainText(line.text.trim(), transLang)));
+                const image = new Image(); image.crossOrigin = 'anonymous';
+                await new Promise((resolve, reject) => { image.onload=resolve; image.onerror=()=>reject(new Error('تعذر تحميل صفحة الفصل')); image.src=pageUrls[idx]; });
+                const canvas=document.createElement('canvas'); canvas.width=image.naturalWidth; canvas.height=image.naturalHeight;
+                const ctx=canvas.getContext('2d'); ctx.drawImage(image,0,0);
+                const scale=Math.max(1, image.naturalWidth/900);
+                lines.forEach((line,i) => {
+                    const b=line.bbox, text=translations[i] || line.text;
+                    const pad=8*scale, x=Math.max(0,b.x0-pad), y=Math.max(0,b.y0-pad), w=Math.min(canvas.width-x,(b.x1-b.x0)+pad*2), h=Math.min(canvas.height-y,Math.max(b.y1-b.y0,pad*3));
+                    ctx.fillStyle='rgba(255,255,255,.94)'; ctx.fillRect(x,y,w,h);
+                    ctx.strokeStyle='rgba(124,58,237,.45)'; ctx.lineWidth=Math.max(1,scale); ctx.strokeRect(x,y,w,h);
+                    ctx.fillStyle='#111122'; ctx.font=`700 ${Math.max(18,(b.y1-b.y0)*.82)}px Tajawal, Arial, sans-serif`; ctx.textAlign='right'; ctx.textBaseline='middle';
+                    const maxWidth=w-pad*2; let shown=text; while(ctx.measureText(shown).width>maxWidth && shown.length>3) shown=shown.slice(0,-1); if(shown!==text) shown+='…';
+                    ctx.fillText(shown,x+w-pad,y+h/2);
+                });
+                const page=document.querySelectorAll('#readerBody .reader-page')[idx];
+                if(page){ const old=page.querySelector('img'); if(old){ old.dataset.originalSrc=pageUrls[idx]; old.style.display='none'; } let oldCanvas=page.querySelector('canvas'); if(oldCanvas) oldCanvas.remove(); canvas.style.width='100%'; canvas.style.height='auto'; canvas.style.display='block'; page.appendChild(canvas); }
+                lastTranslation=translations.join('\n');
+                result.innerHTML=`<div class="trans-bubble"><div class="page-num">✅ تم دمج الترجمة على صفحة ${idx+1}</div><p>تمت تغطية النص الأصلي ووضع الترجمة العربية/المختارة فوقه.</p><button onclick="restoreOriginalPage(${idx})" style="margin-top:10px;padding:8px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border-subtle);border-radius:8px;color:var(--text-secondary);font-family:var(--font);cursor:pointer">عرض الأصل</button></div>`;
+                showToast('تم دمج الترجمة على الصورة', 'ok');
+            } catch(e) { result.innerHTML=`<div class="trans-bubble"><div class="page-num" style="color:var(--sec)">⚠️ تعذر الدمج</div><p>${escapeHtml(e.message||'حدث خطأ')}</p></div>`; }
+        }
+        function restoreOriginalPage(idx) { const page=document.querySelectorAll('#readerBody .reader-page')[idx]; if(!page)return; const canvas=page.querySelector('canvas'), img=page.querySelector('img'); if(canvas)canvas.remove(); if(img)img.style.display='block'; showToast('تم عرض الصورة الأصلية','ok'); }
+
+        async function translateCurrentPage() {
+            const idx = parseInt(document.getElementById('pageSelect').value);
+            if (isNaN(idx) || !pageUrls[idx]) { showToast('اختر صفحة أولاً', 'warn'); if (!panelOpen) toggleTransPanel(); return; }
+            if (!panelOpen) toggleTransPanel();
+            const result = document.getElementById('transResult');
+            result.innerHTML = `<div class="trans-loading"><div class="trans-dots"><span></span><span></span><span></span></div><span>جاري قراءة الكلام وترجمته...</span></div>`;
+            try {
+                const original = await extractTextFromPage(pageUrls[idx]);
+                if (!original) throw new Error('لم يتم العثور على كلام واضح في هذه الصفحة');
+                const translated = await translatePlainText(original, transLang);
+                lastTranslation = translated;
+                result.innerHTML = `<div class="trans-bubble"><div class="page-num">📄 صفحة ${idx + 1} — ${transLang}</div><div style="white-space:pre-wrap">${escapeHtml(translated || 'لم تصل ترجمة')}</div><div class="original-text"><strong>النص المستخرج:</strong><br>${escapeHtml(original)}</div></div>`;
+                showToast('تم استخراج الكلام وترجمته تلقائياً', 'ok');
+            } catch (e) {
+                result.innerHTML = `<div class="trans-bubble" style="border-color:rgba(244,63,94,.4)"><div class="page-num" style="color:var(--sec)">⚠️ تعذر الترجمة</div><p>${escapeHtml(e.message || 'حدث خطأ')}</p><p style="font-size:11px;color:var(--text-muted);margin-top:8px">يمكنك إعادة المحاولة بعد تحميل الصفحة بالكامل.</p></div>`;
+            }
+        }
+
+        async function translateAllVisiblePages() {
+            const images = [...document.querySelectorAll('#readerBody .reader-page img')].filter(img => img.complete && img.naturalWidth);
+            if (!images.length) return showToast('انتظر تحميل صفحات الفصل', 'warn');
+            for (let i=0; i<Math.min(images.length, 8); i++) {
+                document.getElementById('pageSelect').value = String(i);
+                await translateCurrentPage();
+            }
+        }
+
+        function uploadImageForTranslate() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = async (ev) => {
+                    const base64 = ev.target.result.split(',')[1];
+                    const mediaType = file.type || 'image/jpeg';
+                    const result = document.getElementById('transResult');
+                    const preview = document.getElementById('transPreviewImg');
+                    preview.src = ev.target.result;
+                    preview.style.display = 'block';
+                    document.getElementById('transPreviewEmpty').style.display = 'none';
+                    result.innerHTML =
+                        `<div class="trans-loading"><div class="trans-dots"><span></span><span></span><span></span></div><span>جاري الترجمة...</span></div>`;
+                    try {
+                        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                model: 'claude-sonnet-4-20250514',
+                                max_tokens: 1000,
+                                messages: [{
+                                    role: 'user',
+                                    content: [{
+                                        type: 'image',
+                                        source: { type: 'base64',
+                                            media_type: mediaType,
+                                            data: base64 }
+                                    }, {
+                                        type: 'text',
+                                        text: `اقرأ النص في هذه الصورة وترجمه إلى ${transLang}. اذكر الأصل أيضاً.`
+                                    }]
+                                }]
+                            })
+                        });
+                        const data = await resp.json();
+                        const text = (data.content || []).map(b => b.text || '').join('');
+                        lastTranslation = text;
+                        result.innerHTML =
+                            `<div class="trans-bubble"><div class="page-num">📁 مرفوع — ${transLang}</div><div style="white-space:pre-wrap">${text}</div></div>`;
+                        showToast('تمت الترجمة!', 'ok');
+                    } catch (err) {
+                        result.innerHTML =
+                            `<div class="trans-bubble"><p>⚠️ فشلت الترجمة: ${err.message}</p></div>`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+
+        function copyTranslation() {
+            if (!lastTranslation) { showToast('لا يوجد نص للنسخ', 'warn'); return; }
+            navigator.clipboard.writeText(lastTranslation).then(() => showToast('تم النسخ!', 'ok'));
+        }
+
+        // ============================================================
+        // 11. تهيئة اللغة والتفاعلات
+        // ============================================================
+        function setupLangPicks() {
+            document.querySelectorAll('.lang-pick').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.dataset.lang;
+                    setTransLang(lang, btn);
+                });
+            });
+        }
+
+        // ============================================================
+        // 12. واجهة المستخدم
+        // ============================================================
+        function setupUI() {
+            setupFilters();
+            setupLangPicks();
+
+            // بحث
+            document.getElementById('searchInp').addEventListener('input', e => doSearch(e.target.value));
+
+            // تبديل البحث في الموبايل
+            const srchToggle = document.getElementById('srchToggle');
+            const searchWrap = document.querySelector('.search-wrap');
+            srchToggle.addEventListener('click', () => {
+                searchWrap.style.display = searchWrap.style.display === 'none' ? 'block' : 'none';
+                if (searchWrap.style.display === 'block') document.getElementById('searchInp').focus();
+            });
+
+            // المنيو
+            const menuBtn = document.getElementById('menuBtn');
+            const drawer = document.getElementById('drawer');
+            const overlay = document.getElementById('drawerOverlay');
+            const toggleDrawer = () => {
+                const open = drawer.classList.toggle('open');
+                overlay.classList.toggle('open', open);
+                menuBtn.classList.toggle('active', open);
+                document.body.style.overflow = open ? 'hidden' : '';
+            };
+            menuBtn.addEventListener('click', toggleDrawer);
+            overlay.addEventListener('click', toggleDrawer);
+            drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleDrawer));
+
+            // تبديل الثيم (تجريبي)
+            let dark = true;
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                dark = !dark;
+                document.body.style.background = dark ? 'var(--bg-deep)' : '#f0ecff';
+                document.body.style.color = dark ? 'var(--text-primary)' : '#1a1a2e';
+                document.getElementById('themeToggle').innerHTML = dark ? '<i class="fas fa-moon"></i>' :
+                    '<i class="fas fa-sun"></i>';
+                document.querySelectorAll('.bg-card, .bg-surface, .bg-deep').forEach(el => {
+                    el.style.background = dark ? '' : 'rgba(255,255,255,0.7)';
+                });
+            });
+            document.getElementById('drawerThemeToggle').addEventListener('click', () => {
+                document.getElementById('themeToggle').click();
+            });
+
+            // إغلاق المودال بالـ Escape
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') { closeDetail();
+                    closeReader(); }
+                if (document.getElementById('readerOverlay').classList.contains('open')) {
+                    if (e.key === 'ArrowLeft') nextChapter();
+                    if (e.key === 'ArrowRight') prevChapter();
+                }
+            });
+            document.getElementById('detailModal').addEventListener('click', e => {
+                if (e.target === document.getElementById('detailModal')) closeDetail();
+            });
+
+            // سكرول الهيدر
+            window.addEventListener('scroll', () => {
+                document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 40);
+            });
+
+            // التنقل السلس
+            document.querySelectorAll('[data-nav]').forEach(el => {
+                el.addEventListener('click', e => {
+                    const target = el.dataset.nav;
+                    if (target === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+                    else {
+                        const map = { popular: 'popular', updates: 'updates', categories: 'cats',
+                            top: 'top' };
+                        const id = map[target];
+                        if (id) scrollToSection(id);
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // 13. الإطلاق
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadManga();
+            setupUI();
+        });
+
+        // تصدير بعض الدوال للاستخدام العالمي
+        window.openDetail = openDetail;
+        window.closeDetail = closeDetail;
+        window.doRead = doRead;
+        window.startFromDetail = startFromDetail;
+        window.closeReader = closeReader;
+        window.nextChapter = nextChapter;
+        window.prevChapter = prevChapter;
+        window.toggleFullscreen = toggleFullscreen;
+        window.toggleTransPanel = toggleTransPanel;
+        window.translateCurrentPage = translateCurrentPage;
+        window.mergeCurrentPage = mergeCurrentPage;
+        window.restoreOriginalPage = restoreOriginalPage;
+        window.uploadImageForTranslate = uploadImageForTranslate;
+        window.translateAllVisiblePages = translateAllVisiblePages;
+        window.copyTranslation = copyTranslation;
+        window.setTransLang = setTransLang;
+        window.showToast = showToast;
+        window.scrollToSection = scrollToSection;
+    
+        // ============================================================
+        // 14. طبقة حديثة: PWA-ready, حالة التطبيق، مفضلة، اختصارات، أداء
+        // ============================================================
+        (() => {
+            const status = document.getElementById('appStatus');
+            let statusTimer;
+            function announce(message, offline=false) {
+                if (!status) return;
+                status.textContent = message; status.classList.toggle('offline', offline); status.classList.add('show');
+                clearTimeout(statusTimer); statusTimer = setTimeout(() => status.classList.remove('show'), 3500);
+            }
+            window.addEventListener('offline', () => announce('أنت غير متصل — ستستمر البيانات المحفوظة إن وجدت', true));
+            window.addEventListener('online', () => announce('عاد الاتصال بالإنترنت')); 
+            if (!navigator.onLine) announce('وضع عدم الاتصال', true);
+
+            // حفظ المظهر بشكل صحيح بدلاً من style inline الجزئي
+            const savedTheme = localStorage.getItem('orion-theme');
+            if (savedTheme === 'light') document.body.classList.add('light-mode');
+            function syncTheme() {
+                const light = document.body.classList.toggle('light-mode');
+                localStorage.setItem('orion-theme', light ? 'light' : 'dark');
+                const btn = document.getElementById('themeToggle');
+                if (btn) { btn.innerHTML = light ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>'; btn.setAttribute('aria-pressed', String(light)); }
+            }
+            // override both desktop and drawer theme controls without touching legacy handlers
+            document.getElementById('themeToggle')?.addEventListener('click', e => { e.stopImmediatePropagation(); syncTheme(); }, true);
+            document.getElementById('drawerThemeToggle')?.addEventListener('click', e => { e.preventDefault(); e.stopImmediatePropagation(); syncTheme(); }, true);
+
+            // Search debounce + keyboard shortcut Ctrl/Cmd+K
+            const search = document.getElementById('searchInp');
+            let timer;
+            search?.addEventListener('input', e => { clearTimeout(timer); timer=setTimeout(() => doSearch(e.target.value), 180); });
+            document.addEventListener('keydown', e => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k') { e.preventDefault(); search?.focus(); }
+            });
+
+            // مفضلة محلية قابلة للاستمرار
+            const getFavs=()=>JSON.parse(localStorage.getItem('orion-favorites')||'[]');
+            window.toggleFavorite = function(id) {
+                const favs=getFavs(), i=favs.indexOf(id); i<0 ? favs.push(id) : favs.splice(i,1);
+                localStorage.setItem('orion-favorites', JSON.stringify(favs));
+                showToast(i<0?'تمت الإضافة إلى المفضلة':'تمت الإزالة من المفضلة', 'ok');
+            };
+            window.addEventListener('beforeunload', () => localStorage.setItem('orion-last-visit', Date.now()));
+
+            // إيقاف الرسوم الثقيلة عند إخفاء التبويب
+            document.addEventListener('visibilitychange', () => { document.body.classList.toggle('tab-hidden', document.hidden); });
+            // Service worker اختياري عند الاستضافة عبر HTTPS (لا يفشل عند فتح الملف محلياً)
+            if ('serviceWorker' in navigator && location.protocol === 'https:') {
+                navigator.serviceWorker.register('./sw.js').catch(()=>{});
+            }
+        })();
+</script>
+</body>
+</html>
