@@ -35,4 +35,3 @@ self.addEventListener('fetch', e => {
       return res;
     }).catch(() => caches.match(req).then(r => r || caches.match('./orion-toons-v2.html')))
   );
-});
