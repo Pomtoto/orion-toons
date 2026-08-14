@@ -1,18 +1,17 @@
 {
-  "name": "nova-manga-api",
+  "name": "orion-toons",
   "version": "3.0.0",
+  "description": "أوريون توونز — منصة عربية للمانهوا والمانها والمانغا",
   "type": "module",
-  "main": "api/index.js",
+  "private": true,
   "scripts": {
-    "dev": "node api/index.js",
-    "build": "echo 'No build step required'"
+    "start": "node api/index.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
     "cors": "^2.8.5",
-    "compression": "^1.7.4"
+    "express": "^4.19.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18"
   }
 }
